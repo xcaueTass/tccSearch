@@ -1,4 +1,4 @@
-package br.com.tcc.webapp.swagger.configs;
+package br.com.tcc.webapp.configs;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.ConfigurableEnvironment;

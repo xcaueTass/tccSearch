@@ -1,4 +1,4 @@
-package br.com.tcc.webapp.swagger.configs;
+package br.com.tcc.webapp.configs;
 
 import java.util.Collections;
 import java.util.List;
