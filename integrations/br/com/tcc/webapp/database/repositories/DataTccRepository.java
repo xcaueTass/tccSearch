@@ -1,6 +1,5 @@
-package br.com.tcc.webapp.repositories;
+package br.com.tcc.webapp.database.repositories;
 
-import br.com.tcc.webapp.entities.DataTcc;
 
 import java.util.Optional;
 
@@ -8,6 +7,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+
+import br.com.tcc.webapp.database.entities.DataTcc;
 
 @Repository
 public interface DataTccRepository extends JpaRepository<DataTcc, Long> {

@@ -1,4 +1,4 @@
-package br.com.tcc.webapp.configs;
+package br.com.tcc.webapp.database.configs;
 
 import java.time.Duration;
 

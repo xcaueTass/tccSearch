@@ -1,4 +1,4 @@
-package br.com.tcc.webapp.entities;
+package br.com.tcc.webapp.database.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
