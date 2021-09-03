@@ -33,10 +33,10 @@ public class WebController {
 
 		try {
 
-			log.info("Request da solicitação do TCC: %s", nameTcc);
+			log.info("Request da solicitação do TCC: {}", nameTcc);
 			var data = service.search(nameTcc);
 
-			log.info("Informações encontrado na base de dados TCC: %s", data);
+			log.info("Informações encontrado na base de dados TCC: {}", data);
 			return ResponseEntity.status(HttpStatus.OK).body(data);
 		} catch (Exception e) {
 
@@ -56,7 +56,7 @@ public class WebController {
 			return ResponseEntity.status(HttpStatus.OK).body(returnService);
 
 		} catch (Exception e) {
-			log.error("Não foi possível salvar os dados, Erro: %s", returnService);
+			log.error("Não foi possível salvar os dados, Erro: {}", returnService);
 			return error.errorCustom(returnService);
 		}
 

@@ -1,10 +1,12 @@
 package br.com.tcc.webapp;
 
+import br.com.tcc.webapp.controllers.WebController;
 import br.com.tcc.webapp.database.entities.DataTcc;
 import br.com.tcc.webapp.database.repositories.DataTccRepository;
 import br.com.tcc.webapp.exceptions.DataBaseExceptions;
 import br.com.tcc.webapp.models.ObjData;
 import br.com.tcc.webapp.services.ServiceWeb;
+import lombok.SneakyThrows;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -20,7 +22,15 @@ import org.junit.jupiter.api.Test;
 import org.mockito.BDDMockito;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @SpringBootTest
 class WebappApplicationTests {
@@ -31,6 +41,13 @@ class WebappApplicationTests {
 	@Mock
 	DataTccRepository repository;
 
+	@Mock
+	WebController controller;
+
+	@Autowired
+	ObjectMapper objectMapper;
+
+	private MockMvc mockMvc;
 	ObjData objData;
 	String returnTcc = "DataTcc(id=1, nomeAluno=Flawbson, nomeTcc=Teste, dataInclusao=03/09/2021)";
 	String nameTcc = "Teste";
@@ -38,6 +55,8 @@ class WebappApplicationTests {
 
 	@BeforeEach
 	public void setUp() {
+
+		this.mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
 
 		LocalDateTime ldt = LocalDateTime.now();
 		var formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -72,6 +91,23 @@ class WebappApplicationTests {
 		var retorno = service.insert(objData);
 		String returnPost = "Dados inseridos com sucesso";
 		Assert.assertEquals(returnPost, retorno);
+	}
+
+	@Test
+	@SneakyThrows
+	void testGETFindByIdCont() {
+		this.mockMvc.perform(MockMvcRequestBuilders.get("/tcc/search/Teste"))
+				.andExpect(MockMvcResultMatchers.status().isOk());
+	}
+
+	@Test
+	@SneakyThrows
+	void testPOSTCreateUserPro() {
+		ObjData obj = new ObjData(10000, "caue", "teste", "2021-03-22T23:50:04");
+		this.mockMvc
+				.perform(MockMvcRequestBuilders.post("/tcc/insert").contentType(MediaType.APPLICATION_JSON)
+						.content(objectMapper.writeValueAsString(obj)))
+				.andExpect(MockMvcResultMatchers.status().isOk());
 	}
 
 	@AfterEach

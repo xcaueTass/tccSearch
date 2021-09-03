@@ -25,7 +25,7 @@ public class ServiceWeb {
 	@SneakyThrows
 	public String search(String nameTcc) {
 
-		log.info("Buscando informações na base de dados com nome do TCC: %s", nameTcc);
+		log.info("Buscando informações na base de dados com nome do TCC: {}", nameTcc);
 		var dataTcc = repository.findNameTcc(nameTcc)
 				.orElseThrow(() -> new DataBaseExceptions("Não existe informações na base de dados"));
 
